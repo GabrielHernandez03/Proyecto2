@@ -15,39 +15,58 @@ public class ArbolBB {
     public ArbolBB() {
         this.raiz = null;
     }
-    
-       public void insertar(FragmentoADN fragmento) {
-       raiz = insertarRec(raiz, fragmento);
-   }
 
-   private Hoja insertarRec(Hoja nodo, FragmentoADN fragmento) {
-       if (nodo == null) {
-           return new Hoja(fragmento);
-       }
-       if (fragmento.frec > nodo.fragmento.frec) {
-           nodo.izquierdo = insertarRec(nodo.izquierdo, fragmento);
-       } else {
-           nodo.derecho = insertarRec(nodo.derecho, fragmento);
-       }
-       return nodo;
-   }
-   public FragmentoADN getMasFrecuente() {
-       if (raiz == null) return null;
-       NodoBST actual = raiz;
-       while (actual.izquierdo != null) {
-           actual = actual.izquierdo; // El máximo está en el extremo izquierdo
-       }
-       return actual.fragmento;
-   }
-      public FragmentoADN getMenosFrecuente() {
-       if (raiz == null) return null;
-       NodoBST actual = raiz;
-       while (actual.derecho != null) {
-           actual = actual.derecho; // El mínimo está en el extremo derecho
-       }
-       return actual.fragmento;
-   }
-      
-   
+    public void insertar(FragmentoADN fragmento) {
+        raiz = insertarRec(raiz, fragmento);
+    }
+
+    private Hoja insertarRec(Hoja nodo, FragmentoADN fragmento) {
+        if (nodo == null) {
+            return new Hoja(fragmento);
+        }
+        if (fragmento.frec > nodo.fragmento.frec) {
+            nodo.izquierdo = insertarRec(nodo.izquierdo, fragmento);
+        } else {
+            nodo.derecho = insertarRec(nodo.derecho, fragmento);
+        }
+        return nodo;
+    }
+
+    public FragmentoADN getMasFrecuente() {
+        if (raiz == null) {
+            return null;
+        }
+        NodoBST actual = raiz;
+        while (actual.izquierdo != null) {
+            actual = actual.izquierdo; // El máximo está en el extremo izquierdo
+        }
+        return actual.fragmento;
+    }
+
+    public FragmentoADN getMenosFrecuente() {
+        if (raiz == null) {
+            return null;
+        }
+        Hoja actual = raiz;
+        while (actual.derecho != null) {
+            actual = actual.derecho;
+        }
+        return actual.fragmento;
+    }
+
+    public Lista getFragmentosOrdenados() {
+        Lista listaOrdenada = new Lista();
+        inOrder(raiz, listaOrdenada);
+        return listaOrdenada;
+    }
+
+    private void inOrder(Hoja nodo, Lista lista) {
+        if (nodo != null) {
+            inOrder(nodo.izquierdo, lista); 
+            FragmentoADN fragmento = nodo.fragmento;
+            lista.añadir(fragmento); 
+            inOrder(nodo.derecho, lista);
+        }
+    }
+
 }
-
