@@ -37,7 +37,7 @@ public class TablaHash {
                 case 'G': valor = 3; break;
                 default: throw new IllegalArgumentException("Nucleótido inválido: " + c);
             }
-            hash = (hash << 2) | valor; // 2 bits por nucleótido
+            hash = (hash << 2) | valor; 
         }
         return Math.abs(hash) % capacidad;
     }
@@ -86,22 +86,32 @@ public class TablaHash {
         return null;
     }
 
-//    public LinkedList<String> reporteColisiones() {
-//        LinkedList<String> colisiones = new LinkedList<>();
-//        
-//        for (int i = 0; i < capacidad; i++) {
-//            if (tabla[i] != null && tabla[i].siguiente != null) {
-//                Nodo actual = tabla[i];
-//                colisiones.add("Índice " + i + ":");
-//                while (actual != null) {
-//                    FragmentoADN f = (FragmentoADN) actual.dato;
-//                    colisiones.add("  - " + f.frag + " (frec: " + f.frec + ")");
-//                    actual = actual.siguiente;
-//                }
-//            }
-//        }
-//        return colisiones;
-//    }
+public String[] reporteColisiones() {
+    int totalColisiones = 0;
+    for (int i = 0; i < capacidad; i++) {
+        if (tabla[i] != null && tabla[i].siguiente != null) {
+            totalColisiones++;
+        }
+    }
+
+    String[] colisiones = new String[totalColisiones];
+    int index = 0;
+
+    for (int i = 0; i < capacidad; i++) {
+        if (tabla[i] != null && tabla[i].siguiente != null) {
+            StringBuilder reporte = new StringBuilder("Índice " + i + ":");
+            Nodo actual = tabla[i];
+            while (actual != null) {
+                FragmentoADN f = (FragmentoADN) actual.dato;
+                reporte.append("\n  - ").append(f.frag).append(" (frec: ").append(f.frec).append(")");
+                actual = actual.siguiente;
+            }
+            colisiones[index++] = reporte.toString(); 
+        }
+    }
+    return colisiones; 
+}
+
 
 }
 
