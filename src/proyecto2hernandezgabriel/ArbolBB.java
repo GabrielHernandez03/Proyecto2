@@ -15,5 +15,22 @@ public class ArbolBB {
     public ArbolBB() {
         this.raiz = null;
     }
+    
+       public void insertar(FragmentoADN fragmento) {
+       raiz = insertarRec(raiz, fragmento);
+   }
+
+   private Hoja insertarRec(Hoja nodo, FragmentoADN fragmento) {
+       if (nodo == null) {
+           return new Hoja(fragmento);
+       }
+       if (fragmento.frec > nodo.fragmento.frec) {
+           nodo.izquierdo = insertarRec(nodo.izquierdo, fragmento);
+       } else {
+           nodo.derecho = insertarRec(nodo.derecho, fragmento);
+       }
+       return nodo;
+   }
+   
 }
 
