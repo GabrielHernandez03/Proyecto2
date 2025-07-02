@@ -31,6 +31,23 @@ public class ArbolBB {
        }
        return nodo;
    }
+   public FragmentoADN getMasFrecuente() {
+       if (raiz == null) return null;
+       NodoBST actual = raiz;
+       while (actual.izquierdo != null) {
+           actual = actual.izquierdo; // El máximo está en el extremo izquierdo
+       }
+       return actual.fragmento;
+   }
+      public FragmentoADN getMenosFrecuente() {
+       if (raiz == null) return null;
+       NodoBST actual = raiz;
+       while (actual.derecho != null) {
+           actual = actual.derecho; // El mínimo está en el extremo derecho
+       }
+       return actual.fragmento;
+   }
+      
    
 }
 
