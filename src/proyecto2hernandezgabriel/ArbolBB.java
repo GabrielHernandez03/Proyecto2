@@ -36,9 +36,9 @@ public class ArbolBB {
         if (raiz == null) {
             return null;
         }
-        NodoBST actual = raiz;
+        Hoja actual = raiz;
         while (actual.izquierdo != null) {
-            actual = actual.izquierdo; // El máximo está en el extremo izquierdo
+            actual = actual.izquierdo; 
         }
         return actual.fragmento;
     }
