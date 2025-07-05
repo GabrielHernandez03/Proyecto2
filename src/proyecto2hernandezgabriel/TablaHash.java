@@ -49,9 +49,9 @@ public class TablaHash {
 
         while (actual != null) {
             FragmentoADN f = (FragmentoADN) actual.dato;
-            if (f.frag.equals(fragmento)) {
-                f.frec++;
-                f.ubi[f.frec - 1] = ubicacion;
+            if (f.getFrag().equals(fragmento)) {
+                f.setFrec(f.getFrec() + 1);
+                f.getUbi()[f.getFrec() - 1] = ubicacion;
                 encontrado = true;
                 break;
             }
@@ -60,8 +60,8 @@ public class TablaHash {
 
         if (!encontrado) {
             FragmentoADN nuevo = new FragmentoADN(fragmento);
-            nuevo.ubi[0] = ubicacion;
-            nuevo.frec = 1;
+            nuevo.getUbi()[0] = ubicacion;
+            nuevo.setFrec(1);
             Nodo nuevoNodo = new Nodo(nuevo);
             if (tabla[index] != null) {
                 colisionesTotales++; 
@@ -78,7 +78,7 @@ public class TablaHash {
         
         while (actual != null) {
             FragmentoADN f = (FragmentoADN) actual.dato;
-            if (f.frag.equals(fragmento)) {
+            if (f.getFrag().equals(fragmento)) {
                 return f;
             }
             actual = actual.siguiente;
@@ -103,7 +103,7 @@ public String[] reporteColisiones() {
             Nodo actual = tabla[i];
             while (actual != null) {
                 FragmentoADN f = (FragmentoADN) actual.dato;
-                reporte.append("\n  - ").append(f.frag).append(" (frec: ").append(f.frec).append(")");
+                reporte.append("\n  - ").append(f.getFrag()).append(" (frec: ").append(f.getFrec()).append(")");
                 actual = actual.siguiente;
             }
             colisiones[index++] = reporte.toString(); 

@@ -10,9 +10,10 @@ package proyecto2hernandezgabriel;
  */
 public class Lista {
     private Nodo primero;
-
+    private int tam;
     public Lista() {
         this.primero = null;
+        tam = 0;
     }
 
     public void añadir(FragmentoADN nuevo) {
@@ -26,6 +27,7 @@ public class Lista {
             }
             actual.siguiente = nuevoNodo;
         }
+        tam += 1;
     }
 
     public boolean buscar(FragmentoADN frag) {
@@ -38,5 +40,22 @@ public class Lista {
         }
         return false;
     }
+    
+    
+    public String[] obtenerNombres() {
+    Nodo actual = primero;
+    String[] nombres = new String[tam];
+    int indice = 0;
+    while (actual != null) {
+        nombres[indice] = actual.dato.getFrag() + " (" + actual.dato.getFrec() + ")";
+        indice++;
+        actual = actual.siguiente;
+    }
+
+    return nombres;
+}
+
+    
+    
 }
 

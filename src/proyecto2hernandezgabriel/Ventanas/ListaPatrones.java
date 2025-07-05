@@ -23,10 +23,27 @@ public class ListaPatrones extends javax.swing.JFrame {
         tabla = t;
         initComponents();
         String[] frag = arbol.getFragmentosOrdenados().obtenerNombres();
+        this.ordenarAlfabeticamente(frag);
         for (int i = 0; i < frag.length; i++) {
             this.seleccion.addItem(frag[i]);
         }
     }
+    
+    
+    public void ordenarAlfabeticamente(String[] arreglo) {
+    for (int i = 0; i < arreglo.length - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < arreglo.length; j++) {
+            if (arreglo[j].compareTo(arreglo[minIndex]) < 0) {
+                minIndex = j;
+            }
+        }
+        String temp = arreglo[i];
+        arreglo[i] = arreglo[minIndex];
+        arreglo[minIndex] = temp;
+    }
+}
+
     
     
 
