@@ -22,6 +22,8 @@ public class Frecuencia extends javax.swing.JFrame {
         arbol = a;
         tabla = t;
         initComponents();
+                this.setVisible(true);
+
     }
 
     /**
@@ -43,6 +45,7 @@ public class Frecuencia extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         detalles = new javax.swing.JTextArea();
         jButton8 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -103,6 +106,17 @@ public class Frecuencia extends javax.swing.JFrame {
         });
         jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 390, -1, -1));
 
+        jButton7.setBackground(new java.awt.Color(204, 204, 204));
+        jButton7.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 51, 51));
+        jButton7.setText("X");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(926, 10, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 580));
 
         pack();
@@ -112,7 +126,7 @@ public class Frecuencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             FragmentoADN f = arbol.getMenosFrecuente();
-            this.detalles2.setText("El fragmento mas frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
+            this.detalles.setText("El fragmento menos frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
         }catch(Exception e){
             
         }
@@ -120,7 +134,20 @@ public class Frecuencia extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        
+        try{
+            FragmentoADN f = arbol.getMasFrecuente();
+            this.detalles2.setText("El fragmento mas frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
+        }catch(Exception e){
+            
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        MenuPrincipal m = new MenuPrincipal(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,6 +189,7 @@ public class Frecuencia extends javax.swing.JFrame {
     private javax.swing.JTextArea detalles;
     private javax.swing.JTextArea detalles2;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

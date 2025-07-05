@@ -4,6 +4,8 @@
  */
 package proyecto2hernandezgabriel;
 
+import proyecto2hernandezgabriel.Ventanas.MenuPrincipal;
+
 /**
  *
  * @author gabriel
@@ -14,7 +16,9 @@ public class Proyecto2HernandezGabriel {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // TODO code application logic here, 
+        MenuPrincipal m = new MenuPrincipal(new ArbolBB(), new TablaHash(50));
+        m.setVisible(true);
     }
     
 }

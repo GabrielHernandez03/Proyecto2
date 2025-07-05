@@ -24,7 +24,7 @@ public class ArbolBB {
         if (nodo == null) {
             return new Hoja(fragmento);
         }
-        if (fragmento.getFrec() > nodo.fragmento.getFrec()) {
+        if (fragmento.getFrec() >= nodo.fragmento.getFrec()) {
             nodo.izquierdo = insertarRec(nodo.izquierdo, fragmento);
         } else {
             nodo.derecho = insertarRec(nodo.derecho, fragmento);
@@ -60,15 +60,14 @@ public class ArbolBB {
         return listaOrdenada;
     }
 
-    private void inOrder(Hoja nodo, Lista lista) {
-        if (nodo != null) {
-            inOrder(nodo.izquierdo, lista); 
-            FragmentoADN fragmento = nodo.fragmento;
-            lista.añadir(fragmento); 
-            inOrder(nodo.derecho, lista);
-        }
+private void inOrder(Hoja nodo, Lista lista) {
+    if (nodo != null) {
+        inOrder(nodo.derecho, lista);  
+        lista.añadir(nodo.fragmento); 
+        inOrder(nodo.izquierdo, lista); 
     }
-    
+}
+
     
     public FragmentoADN buscar(int frecuencia, String nombre) {
     return buscarRec(raiz, frecuencia, nombre);
@@ -83,7 +82,7 @@ private FragmentoADN buscarRec(Hoja nodo, int frecuencia, String nombre) {
         return nodo.fragmento;
     }
 
-    if (frecuencia > nodo.fragmento.getFrec()) {
+    if (frecuencia >= nodo.fragmento.getFrec()) {
         return buscarRec(nodo.izquierdo, frecuencia, nombre);
     } else {
         return buscarRec(nodo.derecho, frecuencia, nombre);

@@ -4,7 +4,15 @@
  */
 package proyecto2hernandezgabriel.Ventanas;
 
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import proyecto2hernandezgabriel.ArbolBB;
+import proyecto2hernandezgabriel.FragmentoADN;
 import proyecto2hernandezgabriel.TablaHash;
 
 /**
@@ -12,8 +20,10 @@ import proyecto2hernandezgabriel.TablaHash;
  * @author gabriel
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+
     public static ArbolBB arbol;
     public static TablaHash tabla;
+
     /**
      * Creates new form MenuPrincipal
      */
@@ -21,6 +31,51 @@ public class MenuPrincipal extends javax.swing.JFrame {
         arbol = a;
         tabla = t;
         initComponents();
+        this.setVisible(true);
+
+    }
+
+    public void accionCargarArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
+        fileChooser.setFileFilter(filtro);
+
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            try (BufferedReader br = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))) {
+                String secuenciaADN = br.readLine();
+                if (secuenciaADN != null) {
+                    procesarSecuencia(secuenciaADN);
+                    JOptionPane.showMessageDialog(null, "Archivo cargado exitosamente");
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar archivo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void procesarSecuencia(String secuencia) {
+        for (int i = 0; i <= secuencia.length() - 3; i += 3) {
+            String fragmentoStr = secuencia.substring(i, i + 3);
+
+            FragmentoADN fragmento = tabla.buscar(fragmentoStr);
+
+            if (fragmento == null) {
+
+                fragmento = new FragmentoADN(fragmentoStr);
+                fragmento.agregarUbicacion(i);
+                fragmento.setFrec(1);
+
+                tabla.añadir(fragmento);
+            } else {
+                fragmento.agregarUbicacion(i);
+                fragmento.setFrec(fragmento.getFrec() + 1);
+            }
+        }
+
+        for (FragmentoADN fragmento : tabla.obtenerTodosLosFragmentos()) {
+            arbol.insertar(fragmento);
+        }
     }
 
     /**
@@ -34,10 +89,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -58,55 +109,70 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Estadisticas:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, 140, 40));
-
-        jTextField1.setFont(new java.awt.Font("Rockwell", 2, 18)); // NOI18N
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 200, 40));
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 450, -1, -1));
-
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 51, 51));
         jButton2.setText("FRECUENCIA DE PATRONES");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, -1, -1));
 
         jButton6.setBackground(new java.awt.Color(204, 204, 204));
         jButton6.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 51, 51));
         jButton6.setText("BUSCAR");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         jButton7.setBackground(new java.awt.Color(204, 204, 204));
         jButton7.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(0, 51, 51));
         jButton7.setText("CARGAR");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, -1, -1));
 
         jButton8.setBackground(new java.awt.Color(204, 204, 204));
         jButton8.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jButton8.setForeground(new java.awt.Color(0, 51, 51));
         jButton8.setText("AMINOACIDOS");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
 
         jButton10.setBackground(new java.awt.Color(204, 204, 204));
         jButton10.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jButton10.setForeground(new java.awt.Color(0, 51, 51));
         jButton10.setText("REPORTE DE COLISIONES");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, -1, -1));
 
         jButton11.setBackground(new java.awt.Color(204, 204, 204));
         jButton11.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jButton11.setForeground(new java.awt.Color(0, 51, 51));
         jButton11.setText("PATRONES");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
@@ -123,6 +189,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        this.accionCargarArchivo();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        ListaPatrones l = new ListaPatrones(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        BuscarPatron l = new BuscarPatron(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        ListaAminoacidos l = new ListaAminoacidos(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        Colisiones l = new Colisiones(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Frecuencia l = new Frecuencia(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,13 +267,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,9 +22,14 @@ public class Colisiones extends javax.swing.JFrame {
         tabla = t;
         initComponents();
         String[] col = tabla.reporteColisiones();
-        for (int i = 0; i < col.length; i++) {
-            this.jTextArea1.setText(this.jTextArea1.getText() + "\n" + col[i]);
+        if(col.length == 0){
+            this.jTextArea1.setText("No hubo colisiones");
         }
+        for (int i = 0; i < col.length; i++) {
+            this.jTextArea1.setText(this.jTextArea1.getText() + col[i] + "\n");
+        }
+                this.setVisible(true);
+
     }
 
     /**
@@ -41,6 +46,7 @@ public class Colisiones extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -54,7 +60,7 @@ public class Colisiones extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 660, 160));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 660, 340));
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
@@ -66,10 +72,27 @@ public class Colisiones extends javax.swing.JFrame {
         jLabel3.setText("Opciones de patrones:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
+        jButton7.setBackground(new java.awt.Color(204, 204, 204));
+        jButton7.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 51, 51));
+        jButton7.setText("X");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(986, 10, 50, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        MenuPrincipal m = new MenuPrincipal(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,6 +131,7 @@ public class Colisiones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

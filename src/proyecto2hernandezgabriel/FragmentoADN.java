@@ -12,52 +12,41 @@ public class FragmentoADN {
     private String frag;
     private int frec;
     private int[] ubi;
-    
-    public FragmentoADN(String f){
-        this.frag = f;
+    private static final int MAX_UBICACIONES = 100; 
+
+    public FragmentoADN(String frag) {
+        this.frag = frag;
         this.frec = 0;
-        this.ubi = new int[100];
+        this.ubi = new int[MAX_UBICACIONES];
     }
 
-    /**
-     * @return the frag
-     */
     public String getFrag() {
         return frag;
     }
 
-    /**
-     * @param frag the frag to set
-     */
-    public void setFrag(String frag) {
-        this.frag = frag;
-    }
-
-    /**
-     * @return the frec
-     */
     public int getFrec() {
         return frec;
     }
 
-    /**
-     * @param frec the frec to set
-     */
     public void setFrec(int frec) {
         this.frec = frec;
     }
 
-    /**
-     * @return the ubi
-     */
     public int[] getUbi() {
         return ubi;
     }
 
-    /**
-     * @param ubi the ubi to set
-     */
-    public void setUbi(int[] ubi) {
-        this.ubi = ubi;
+public void agregarUbicacion(int ubicacion) {
+    if (frec >= ubi.length) {
+        int nuevaCapacidad = ubi.length + 10;
+        int[] nuevoArreglo = new int[nuevaCapacidad];
+        for (int i = 0; i < ubi.length; i++) {
+            nuevoArreglo[i] = ubi[i];
+        }
+        ubi = nuevoArreglo;
     }
+    ubi[frec] = ubicacion;
+    frec++;
+}
+
 }

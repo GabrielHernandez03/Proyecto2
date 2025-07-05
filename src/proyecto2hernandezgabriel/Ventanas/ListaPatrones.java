@@ -23,26 +23,13 @@ public class ListaPatrones extends javax.swing.JFrame {
         tabla = t;
         initComponents();
         String[] frag = arbol.getFragmentosOrdenados().obtenerNombres();
-        this.ordenarAlfabeticamente(frag);
         for (int i = 0; i < frag.length; i++) {
             this.seleccion.addItem(frag[i]);
         }
+                this.setVisible(true);
+
     }
     
-    
-    public void ordenarAlfabeticamente(String[] arreglo) {
-    for (int i = 0; i < arreglo.length - 1; i++) {
-        int minIndex = i;
-        for (int j = i + 1; j < arreglo.length; j++) {
-            if (arreglo[j].compareTo(arreglo[minIndex]) < 0) {
-                minIndex = j;
-            }
-        }
-        String temp = arreglo[i];
-        arreglo[i] = arreglo[minIndex];
-        arreglo[minIndex] = temp;
-    }
-}
 
     
     
@@ -65,6 +52,7 @@ public class ListaPatrones extends javax.swing.JFrame {
         patron = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -114,6 +102,17 @@ public class ListaPatrones extends javax.swing.JFrame {
         jLabel5.setText("Detalles del patron ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
+        jButton7.setBackground(new java.awt.Color(204, 204, 204));
+        jButton7.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 51, 51));
+        jButton7.setText("X");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 10, -1, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 580));
 
         pack();
@@ -121,17 +120,24 @@ public class ListaPatrones extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        try{
+//        try{
             String frag = (String) this.seleccion.getSelectedItem();
             String[] aux;
             aux = frag.trim().replace(")", "").split("\\(");
-            
-            FragmentoADN f = arbol.buscar(Integer.parseInt(aux[1]), aux[0]);
+            System.out.println(Integer.parseInt(aux[1]));
+            System.out.println( aux[0].trim());
+            FragmentoADN f = arbol.buscar(Integer.parseInt(aux[1]), aux[0].trim());
             this.detalles.setText(f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
-        }catch(Exception e){
-            
-        }
+//        }catch(Exception e){
+//            
+//        }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        MenuPrincipal m = new MenuPrincipal(arbol, tabla);
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +178,7 @@ public class ListaPatrones extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea detalles;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

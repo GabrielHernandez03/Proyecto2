@@ -22,10 +22,10 @@ public class Lista {
             primero = nuevoNodo; 
         } else {
             Nodo actual = primero;
-            while (actual.siguiente != null) {
-                actual = actual.siguiente;
+            while (actual.getSiguiente() != null) {
+                actual = actual.getSiguiente();
             }
-            actual.siguiente = nuevoNodo;
+            actual.setSiguiente(nuevoNodo);
         }
         tam += 1;
     }
@@ -33,10 +33,10 @@ public class Lista {
     public boolean buscar(FragmentoADN frag) {
         Nodo actual = primero;
         while (actual != null) {
-            if (actual.dato.equals(frag)) {
+            if (actual.getDato().equals(frag)) {
                 return true; 
             }
-            actual = actual.siguiente;
+            actual = actual.getSiguiente();
         }
         return false;
     }
@@ -47,9 +47,9 @@ public class Lista {
     String[] nombres = new String[tam];
     int indice = 0;
     while (actual != null) {
-        nombres[indice] = actual.dato.getFrag() + " (" + actual.dato.getFrec() + ")";
+        nombres[indice] = actual.getDato().getFrag() + " (" + actual.getDato().getFrec() + ")";
         indice++;
-        actual = actual.siguiente;
+        actual = actual.getSiguiente();
     }
 
     return nombres;
