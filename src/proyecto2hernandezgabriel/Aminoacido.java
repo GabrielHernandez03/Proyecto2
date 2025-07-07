@@ -9,9 +9,9 @@ package proyecto2hernandezgabriel;
  * @author gabriel
  */
 public class Aminoacido {
-    String[] fragmentos;
-    String abv1;
-    String abv2;
+    public String[] fragmentos;
+    public String abv1;
+    public String abv2;
 
     public Aminoacido(String[] fragmentos, String abv1, String abv2) {
         this.fragmentos = fragmentos;
