@@ -16,7 +16,7 @@ public class FragmentoADN {
 
     public FragmentoADN(String frag) {
         this.frag = frag;
-        this.frec = 0;
+        this.frec =1;
         this.ubi = new int[MAX_UBICACIONES];
     }
 
@@ -36,17 +36,31 @@ public class FragmentoADN {
         return ubi;
     }
 
-public void agregarUbicacion(int ubicacion) {
-    if (frec >= ubi.length) {
-        int nuevaCapacidad = ubi.length + 10;
-        int[] nuevoArreglo = new int[nuevaCapacidad];
-        for (int i = 0; i < ubi.length; i++) {
-            nuevoArreglo[i] = ubi[i];
+    public void agregarUbicacion(int ubicacion) {
+        if (frec >= ubi.length) {
+            int nuevaCapacidad = ubi.length + 10;
+            int[] nuevoArreglo = new int[nuevaCapacidad];
+            for (int i = 0; i < ubi.length; i++) {
+                nuevoArreglo[i] = ubi[i];
+            }
+            ubi = nuevoArreglo;
         }
-        ubi = nuevoArreglo;
+        ubi[frec] = ubicacion;
     }
-    ubi[frec] = ubicacion;
-    frec++;
-}
 
+    public String ubicacionesToString() {
+        if (frec == 0) {
+            return "[]";  
+        }
+
+        String resultado = "[";
+        resultado += ubi[0];  
+
+        for (int i = 1; i < frec; i++) {
+            resultado += ", " + ubi[i];
+        }
+
+        resultado += "]";
+        return resultado;
+    }
 }

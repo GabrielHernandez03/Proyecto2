@@ -17,7 +17,7 @@ public class Proyecto2HernandezGabriel {
      */
     public static void main(String[] args) {
         // TODO code application logic here, 
-        MenuPrincipal m = new MenuPrincipal(new ArbolBB(), new TablaHash(50));
+        MenuPrincipal m = new MenuPrincipal(null, null);
         m.setVisible(true);
     }
     

@@ -45,6 +45,9 @@ public class TablaHash {
                 case 'T':
                     valor = 2;
                     break;
+                case 'U':
+                    valor = 2;
+                    break;
                 case 'G':
                     valor = 3;
                     break;
