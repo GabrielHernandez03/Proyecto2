@@ -32,12 +32,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tabla = t;
         initComponents();
         this.setVisible(true);
+        if (arbol == null) {
+            this.jButton2.setEnabled(false);
+            this.jButton10.setEnabled(false);
+            this.jButton11.setEnabled(false);
+            this.jButton6.setEnabled(false);
+            this.jButton8.setEnabled(false);;
+
+        }
 
     }
 
     public void accionCargarArchivo() {
         JFileChooser fileChooser = new JFileChooser();
-
+        arbol = new ArbolBB();
+        tabla = new TablaHash(50);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
         fileChooser.setFileFilter(filtro);
 
@@ -52,6 +61,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error al cargar archivo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        
+        this.jButton2.setEnabled(true);
+            this.jButton10.setEnabled(true);
+            this.jButton11.setEnabled(true);
+            this.jButton6.setEnabled(true);
+            this.jButton8.setEnabled(true);;
     }
 
     private void procesarSecuencia(String secuencia) {

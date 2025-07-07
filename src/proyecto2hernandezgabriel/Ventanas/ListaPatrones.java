@@ -15,17 +15,26 @@ import proyecto2hernandezgabriel.TablaHash;
 public class ListaPatrones extends javax.swing.JFrame {
     public static ArbolBB arbol;
     public static TablaHash tabla;
+    int patrones;
     /**
      * Creates new form MenuPrincipal
      */
     public ListaPatrones(ArbolBB a, TablaHash t) {
         arbol = a;
         tabla = t;
+        patrones = 0;
         initComponents();
         String[] frag = arbol.getFragmentosOrdenados().obtenerNombres();
         for (int i = 0; i < frag.length; i++) {
             this.seleccion.addItem(frag[i]);
+            
+            
+//            String[] aux;
+//            aux = frag[i].trim().replace(")", "").split("\\(");
+//            patrones += Integer.parseInt(aux[1]);
+////            patrones += tabla.buscar(frag[i]).getFrec();
         }
+//        this.detalles.setText(String.valueOf(patrones));
                 this.setVisible(true);
 
     }
@@ -69,7 +78,7 @@ public class ListaPatrones extends javax.swing.JFrame {
         detalles.setRows(5);
         jScrollPane1.setViewportView(detalles);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 530, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 960, -1));
 
         jButton6.setBackground(new java.awt.Color(204, 204, 204));
         jButton6.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
@@ -89,7 +98,7 @@ public class ListaPatrones extends javax.swing.JFrame {
 
         patron.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         patron.setForeground(new java.awt.Color(204, 204, 204));
-        patron.setText("...");
+        patron.setText("     ");
         jPanel1.add(patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
@@ -120,17 +129,18 @@ public class ListaPatrones extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-//        try{
+        try{
             String frag = (String) this.seleccion.getSelectedItem();
             String[] aux;
+            this.patron.setText(frag);
             aux = frag.trim().replace(")", "").split("\\(");
             System.out.println(Integer.parseInt(aux[1]));
             System.out.println( aux[0].trim());
             FragmentoADN f = arbol.buscar(Integer.parseInt(aux[1]), aux[0].trim());
-            this.detalles.setText(f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
-//        }catch(Exception e){
-//            
-//        }
+            this.detalles.setText(f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.ubicacionesToString());
+        }catch(Exception e){
+            
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

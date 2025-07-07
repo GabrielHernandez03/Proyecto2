@@ -4,7 +4,9 @@
  */
 package proyecto2hernandezgabriel.Ventanas;
 
+import proyecto2hernandezgabriel.Aminoacido;
 import proyecto2hernandezgabriel.ArbolBB;
+import proyecto2hernandezgabriel.FragmentoADN;
 import proyecto2hernandezgabriel.TablaHash;
 
 /**
@@ -12,8 +14,10 @@ import proyecto2hernandezgabriel.TablaHash;
  * @author gabriel
  */
 public class ListaAminoacidos extends javax.swing.JFrame {
+
     public static ArbolBB arbol;
     public static TablaHash tabla;
+
     /**
      * Creates new form MenuPrincipal
      */
@@ -21,8 +25,56 @@ public class ListaAminoacidos extends javax.swing.JFrame {
         arbol = a;
         tabla = t;
         initComponents();
-                this.setVisible(true);
+        this.setVisible(true);
+        this.jTextArea1.setText(this.listarAminoacidos());
 
+    }
+
+    public String listarAminoacidos() {
+        StringBuilder resultado = new StringBuilder();
+        Aminoacido[] aminoacidos = obtenerAminoacidos();
+        for (Aminoacido aminoacido : aminoacidos) {
+            boolean hayTripletas = false;
+            for (String fragmento : aminoacido.fragmentos) {
+                FragmentoADN f = tabla.buscar(fragmento);
+                if (f != null && f.getFrec() > 0) {
+                    if (!hayTripletas) {
+                        resultado.append("Aminoácido: ").append(aminoacido.abv1).append(" (").append(aminoacido.abv2).append(")\n");
+                        hayTripletas = true;
+                    }
+                    resultado.append("  Tripleta: ").append(f.getFrag()).append(", Frecuencia: ").append(f.getFrec()).append("\n");
+                }
+            }
+        }
+        return resultado.toString();
+    }
+
+    private Aminoacido[] obtenerAminoacidos() {
+        return new Aminoacido[]{
+            new Aminoacido(new String[]{"UUU", "UUC"}, "Phe", "F"),
+            new Aminoacido(new String[]{"UUA", "UUG"}, "Leu", "L"),
+            new Aminoacido(new String[]{"UCU", "UCC", "UCA", "UCG"}, "Ser", "S"),
+            new Aminoacido(new String[]{"UAU", "UAC"}, "Tyr", "Y"),
+            new Aminoacido(new String[]{"UAA", "UAG"}, "Stop", "O"),
+            new Aminoacido(new String[]{"UGU", "UGC"}, "Cys", "C"),
+            new Aminoacido(new String[]{"UGA"}, "Stop", "O"),
+            new Aminoacido(new String[]{"UGG"}, "Trp", "W"),
+            new Aminoacido(new String[]{"CUU", "CUC", "CUA", "CUG"}, "Leu", "L"),
+            new Aminoacido(new String[]{"CCU", "CCC", "CCA", "CCG"}, "Pro", "P"),
+            new Aminoacido(new String[]{"CAU", "CAC"}, "His", "H"),
+            new Aminoacido(new String[]{"CAA", "CAG"}, "Gln", "Q"),
+            new Aminoacido(new String[]{"CGU", "CGC", "CGA", "CGG"}, "Arg", "R"),
+            new Aminoacido(new String[]{"AUU", "AUC", "AUA"}, "Ile", "I"),
+            new Aminoacido(new String[]{"AUG"}, "Met", "M"),
+            new Aminoacido(new String[]{"ACU", "ACC", "ACA", "ACG"}, "Thr", "T"),
+            new Aminoacido(new String[]{"AAU", "AAC"}, "Asn", "N"),
+            new Aminoacido(new String[]{"AAA", "AAG"}, "Lys", "K"),
+            new Aminoacido(new String[]{"GAU", "GAC"}, "Asp", "D"),
+            new Aminoacido(new String[]{"GAA", "GAG"}, "Glu", "E"),
+            new Aminoacido(new String[]{"GUU", "GUC", "GUA", "GUG"}, "Val", "V"),
+            new Aminoacido(new String[]{"GCU", "GCC", "GCA", "GCG"}, "Ala", "A"),
+            new Aminoacido(new String[]{"GGU", "GGC", "GGA", "GGG"}, "Gly", "G")
+        };
     }
 
     /**
@@ -35,19 +87,9 @@ public class ListaAminoacidos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,71 +98,18 @@ public class ListaAminoacidos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Estadisticas:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, -1));
-
-        jComboBox1.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, 140, 40));
-
-        jTextField1.setFont(new java.awt.Font("Rockwell", 2, 18)); // NOI18N
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 200, 40));
-
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 450, -1, -1));
-
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 51, 51));
-        jButton2.setText("FRECUENCIA DE PATRONES");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, -1, -1));
-
-        jButton6.setBackground(new java.awt.Color(204, 204, 204));
-        jButton6.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 51, 51));
-        jButton6.setText("BUSCAR");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
-
-        jButton7.setBackground(new java.awt.Color(204, 204, 204));
-        jButton7.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 51, 51));
-        jButton7.setText("CARGAR");
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, -1, -1));
-
-        jButton8.setBackground(new java.awt.Color(204, 204, 204));
-        jButton8.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 51, 51));
-        jButton8.setText("AMINOACIDOS");
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
-
-        jButton10.setBackground(new java.awt.Color(204, 204, 204));
-        jButton10.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(0, 51, 51));
-        jButton10.setText("REPORTE DE COLISIONES");
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, -1, -1));
-
-        jButton11.setBackground(new java.awt.Color(204, 204, 204));
-        jButton11.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(0, 51, 51));
-        jButton11.setText("PATRONES");
-        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 940, 380));
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("MENU PRINCIPAL");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("Opciones de patrones:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        jLabel2.setText("LISTA DE AMINOACIDOS");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
         jButton9.setBackground(new java.awt.Color(204, 204, 204));
         jButton9.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
@@ -181,20 +170,10 @@ public class ListaAminoacidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

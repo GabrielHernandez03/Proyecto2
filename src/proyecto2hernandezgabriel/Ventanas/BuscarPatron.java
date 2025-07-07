@@ -32,6 +32,7 @@ public class BuscarPatron extends javax.swing.JFrame {
             this.seleccion.addItem(s.trim());
         }
         this.setVisible(true);
+        
     }
     
     public void ordenarAlfabeticamente(String[] arreglo) {
@@ -88,7 +89,7 @@ public class BuscarPatron extends javax.swing.JFrame {
         detalles.setRows(5);
         jScrollPane1.setViewportView(detalles);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 530, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 970, -1));
 
         jButton6.setBackground(new java.awt.Color(204, 204, 204));
         jButton6.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
@@ -108,7 +109,7 @@ public class BuscarPatron extends javax.swing.JFrame {
 
         patron.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         patron.setForeground(new java.awt.Color(204, 204, 204));
-        patron.setText("...");
+        patron.setText("      ");
         jPanel1.add(patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
@@ -139,13 +140,14 @@ public class BuscarPatron extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-//        try {
+        try {
             String frag = (String) this.seleccion.getSelectedItem();
             FragmentoADN f = tabla.buscar(frag);
-            this.detalles.setText(f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
-//        } catch (Exception e) {
-//
-//        }
+            this.patron.setText(frag);
+            this.detalles.setText(f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.ubicacionesToString());
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void seleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionActionPerformed

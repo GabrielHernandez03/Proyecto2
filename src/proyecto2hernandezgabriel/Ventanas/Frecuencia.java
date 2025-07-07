@@ -126,7 +126,7 @@ public class Frecuencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             FragmentoADN f = arbol.getMenosFrecuente();
-            this.detalles.setText("El fragmento menos frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
+            this.detalles.setText("El fragmento menos frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.ubicacionesToString());
         }catch(Exception e){
             
         }
@@ -137,7 +137,7 @@ public class Frecuencia extends javax.swing.JFrame {
         
         try{
             FragmentoADN f = arbol.getMasFrecuente();
-            this.detalles2.setText("El fragmento mas frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.getUbi().toString());
+            this.detalles2.setText("El fragmento mas frecuente en la secuencia es: "+f.getFrag() + "\nAparece en la cadena un total de " + f.getFrec() + " veces.\nSe encuentra en las posiciones " + f.ubicacionesToString());
         }catch(Exception e){
             
         }

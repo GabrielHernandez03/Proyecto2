@@ -12,23 +12,26 @@ import proyecto2hernandezgabriel.TablaHash;
  * @author gabriel
  */
 public class Colisiones extends javax.swing.JFrame {
+
     public static ArbolBB arbol;
     public static TablaHash tabla;
+
     /**
      * Creates new form MenuPrincipal
      */
     public Colisiones(ArbolBB a, TablaHash t) {
         arbol = a;
         tabla = t;
+
         initComponents();
         String[] col = tabla.reporteColisiones();
-        if(col.length == 0){
+        if (col.length == 0) {
             this.jTextArea1.setText("No hubo colisiones");
         }
         for (int i = 0; i < col.length; i++) {
             this.jTextArea1.setText(this.jTextArea1.getText() + col[i] + "\n");
         }
-                this.setVisible(true);
+        this.setVisible(true);
 
     }
 
